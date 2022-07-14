@@ -45,11 +45,10 @@ class HealthCheckDomainsCommand extends Command
             })->catch(function (Batch $batch, \Throwable $e) {
                 $domain_ping_batch = DomainPingBatch::where('job_batches_id', $batch->id)->first();
                 $domain_ping_batch->failed = 1;
-                $domain_ping_batch->finished_at = Carbon::now();
                 $domain_ping_batch->save();
             })->finally(function (Batch $batch) {
 
-            })->dispatch();
+            })->allowFailures()->dispatch();
 
         // Save the created job batch to retreive the domain_batch later
         $domain_ping_batch->job_batches_id = $batch->id;
