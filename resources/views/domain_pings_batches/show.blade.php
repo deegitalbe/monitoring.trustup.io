@@ -18,13 +18,13 @@
                 Pinged {{ $domain_pings_batch->domain_pings->count() }} out of {{ $domain_pings_batch->domain_count }}
             </p>
 
-            <div class="flex space-x-8">
-                <div class="w-1/2">
+            <div class="flex flex-col xl:flex-row space-y-8 xl:space-y-0 xl:space-x-4 overflow-x-auto xl:overflow-x-hidden">
+                <div class="xl:w-1/2">
                     <h1 class="text-xl mb-4">Bad status ({{ count($domain_pings_batch->domain_pings->where('status', '!=', 200)) }} pinged)</h1>
                     <x-domain-ping-table class="w-full" :domain-pings="$domain_pings_batch->domain_pings->where('status', '!=', 200)->sortByDesc('answer_time_ms')"></x-domain-ping-table>
                 </div>
 
-                <div class="w-1/2">
+                <div class="xl:w-1/2">
                     <h1 class="text-xl mb-4">200 status ({{ count($domain_pings_batch->domain_pings->where('status', 200)) }} pinged)</h1>
                     <x-domain-ping-table class="w-full" :domain-pings="$domain_pings_batch->domain_pings->where('status', 200)->sortByDesc('answer_time_ms')"></x-domain-ping-table>
                 </div>

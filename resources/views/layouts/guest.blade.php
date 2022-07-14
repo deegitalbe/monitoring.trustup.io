@@ -16,10 +16,10 @@
     </head>
     <body class="bg-slate-100 relative">
 
-        <div class="bg-gray-900 w-full h-16">
+        <div class="bg-gray-900 w-full md:h-16">
             <div class="h-full container mx-auto text-white">
-                <div class="h-full flex justify-between items-center">
-                    <h1 class="text-xl font-bold">monitoring.trustup.io</h1>
+                <div class="h-full flex flex-col md:flex-row py-2 md:py-0 justify-between items-center">
+                    <h1 class="text-xl font-bold mb-2 md:mb-0">monitoring.trustup.io</h1>
                     <div class="flex space-x-8">
                         <a class="hover:underline" href="{{ route('end-points.index') }}">EndPoints</a>
                         <a class="hover:underline" href="{{ route('domain-pings-batches.index') }}">Domains</a>
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="container mx-auto py-12">
+        <div class="container mx-auto py-12 px-2">
             {{ $slot }}
         </div>
 
