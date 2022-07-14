@@ -30,12 +30,11 @@ class HealthCheckDomainJob implements ShouldQueue
 
     public function handle()
     {
-        $startTime = microtime(true);
-
         try {
             $dns = new Dns();
             $result = $dns->getRecords($this->domain['url'], 'A');
 
+            $startTime = microtime(true);
             $customer_domain_response = Http::withoutVerifying()->timeout(30)->get($this->domain['url']);
             $endTime = microtime(true);
 
