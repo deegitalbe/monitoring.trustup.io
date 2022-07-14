@@ -25,7 +25,7 @@
                 </td>
 
                 <td class="px-4 py-0.5 whitespace-nowrap">
-                    {{ $domainPing->status != -1 ? $domainPing->status : 'Host not found' }}
+                    {{ $domainPing->status != -1 ? $domainPing->status : $domainPing->status_reason }}
                 </td>
 
                 <td class="pr-4 py-0.5">
