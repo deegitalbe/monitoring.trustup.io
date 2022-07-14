@@ -55,7 +55,7 @@ class HealthCheckEndPointJob implements ShouldQueue
             HealthCheck::create([
                 'finished_at' => $finished_at,
                 'name' => 'HealthCheckFailed',
-                'label' => 'Heal Check Failed',
+                'label' => 'Health Check Failed',
                 'notification_message' => 'Cannot get health checks from end point',
                 'short_summary' => 'Cannot get health checks from end point',
                 'status' => -1,
