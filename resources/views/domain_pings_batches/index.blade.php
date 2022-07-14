@@ -17,7 +17,7 @@
                 </thead>
                 <tbody class="bg-white border-t-2 border-black">
                 @foreach($domain_ping_batches as $domain_ping_batch)
-                    <tr>
+                    <tr data-bs-toggle="tooltip" title="{{ $domain_ping_batch->failed_reason }}">
                         <td class="pr-6 pl-2 py-0.5 flex space-x-2 items-center h-full">
                             <i class="fas fa-circle text-xs {{ $domain_ping_batch->failed ? '!text-red-400' : '' }} {{ !$domain_ping_batch->finished_at ? 'animate-ping' : '' }}  {{ ($domain_ping_batch->finished_at ? 'text-green-400' : 'text-blue-300' )}}"></i>
                             <a class="text-blue-300 hover:text-blue-500" href="{{ route('domain-pings-batches.show', ['domain_pings_batch' => $domain_ping_batch]) }}"><i class="fas fa-eye"></i></a>
