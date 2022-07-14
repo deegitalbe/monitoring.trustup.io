@@ -9,7 +9,7 @@
     $dataset = '';
 
     foreach ($datas as $data) {
-        $labels .= '\''.$data->finished_at->format('d/m/Y h:i').'\',';
+        $labels .= '\''.$data->finished_at->format('d/m/Y H:i').'\',';
         $dataset .= ''.str_replace('ms', '', explode(' - ', $data->short_summary)[1]).',';
     }
 
