@@ -23,14 +23,21 @@
             </div>
 
             <div>
-                <input type="checkbox" name="is_monitored" id="is_monitored" class="p-2 outline-0 border border-neutral-200 rounded" checked placeholder="https://trustup.be">
+                <input type="checkbox" name="is_monitored" id="is_monitored" class="p-2 outline-0 border border-neutral-200 rounded" checked>
                 <label for="is_monitored" class="pl-2 mb-0.5">Monitor ?</label>
                 @error('is_monitored')
                     <div class="text-red-500 font-bold">{{ $message }}</div>
                 @enderror
             </div>
             <div>
-                <input type="checkbox" name="is_staging" id="is_staging" class="p-2 outline-0 border border-neutral-200 rounded" placeholder="https://trustup.be">
+                <input type="checkbox" name="ping_default_url" id="ping_default_url" class="p-2 outline-0 border border-neutral-200 rounded">
+                <label for="ping_default_url" class="pl-2 mb-0.5">Use default ping url (/trustup-io/health/json)</label>
+                @error('ping_default_url')
+                <div class="text-red-500 font-bold">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <input type="checkbox" name="is_staging" id="is_staging" class="p-2 outline-0 border border-neutral-200 rounded">
                 <label for="is_staging" class="pl-2 mb-0.5">Is staging ?</label>
                 @error('is_staging')
                     <div class="text-red-500 font-bold">{{ $message }}</div>

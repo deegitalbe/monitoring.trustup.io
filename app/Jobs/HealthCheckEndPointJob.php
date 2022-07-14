@@ -27,7 +27,9 @@ class HealthCheckEndPointJob implements ShouldQueue
     public function do_ping($finished_at)
     {
         $startTime = microtime(true);
-        $ping_response = Http::withoutVerifying()->get($this->endPoint->url);
+        $ping_response = Http::withoutVerifying()
+            ->withHeaders(['X-Server-Authorization' => env('TRUSTUP_SERVER_AUTHORIZATION')])
+            ->get($this->endPoint->url . ($this->endPoint->ping_default_url ? '/trustup-io/health/ping' : ''));
         $endTime = microtime(true);
 
         $ping_time_ms = (round(($endTime - $startTime), 3) * 1000);

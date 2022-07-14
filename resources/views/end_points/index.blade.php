@@ -39,7 +39,7 @@
                         </h2>
                     </div>
                     <div class="flex flex-col space-y-0 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-2 text-slate-300">
-                        <h3 class="md:text-lg">{{ $endPoint->url }} -</h3>
+                        <h3 class="md:text-lg">{{ $endPoint->url }}{{ $endPoint->ping_default_url ? '/trustup-io/health/ping' : '' }} -</h3>
                         @if ($endPoint->is_monitored && $endPoint->last_health_check_timestamp)
                             <h3 class="font-light">{{ $endPoint->last_health_check_timestamp->diffForHumans() }}</h3>
                         @elseif ($endPoint->has_failed())

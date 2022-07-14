@@ -11,7 +11,7 @@ class EndPoint extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'url', 'is_monitored', 'is_staging'];
+    protected $fillable = ['name', 'url', 'is_monitored', 'is_staging', 'ping_default_url'];
 
     public $health_checks_failed = false;
 

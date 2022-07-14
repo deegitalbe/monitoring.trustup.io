@@ -34,9 +34,6 @@ class EndPointsController extends Controller
 
     public function store(Request $request)
     {
-        $request->is_monitored = $request->boolean('is_monitored');
-        $request->is_staging = $request->boolean('is_staging');
-
         $request->validate([
             'name' => 'required',
             'url' => 'url',
@@ -47,6 +44,7 @@ class EndPointsController extends Controller
             'url' => $request->url,
             'is_monitored' => $request->boolean('is_monitored'),
             'is_staging' => $request->boolean('is_staging'),
+            'ping_default_url' => $request->boolean('ping_default_url'),
         ]);
         return redirect(route('end-points.index'));
     }
