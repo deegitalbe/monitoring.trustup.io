@@ -41,7 +41,7 @@
                     No data has been recorded yet
                 @elseif ($endPoint->is_monitored && !$endPoint->health_checks_failed)
                     <div class="grid grid-cols-4 gap-4">
-                        @foreach($endPoint->last_health_checks()->get() as $result)
+                        @foreach($endPoint->last_health_checks() as $result)
                             <div class="p-4 shadow-md rounded-xl">
                                 <div class="flex items-start space-x-4 mb-2">
                                     <i class="fas fa-circle text-sm mt-1 {{ $result->status == 'ok' ? 'text-green-400' : 'text-red-400' }}"></i>

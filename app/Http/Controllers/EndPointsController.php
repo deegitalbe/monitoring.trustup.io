@@ -11,6 +11,13 @@ class EndPointsController extends Controller
     {
         $endPoints = EndPoint::all();
 
+        // Load less data as possible
+        foreach ($endPoints as $endPoint) {
+            $endPoint->load(['health_checks' => function($query) use ($endPoint) {
+                $query->where('finished_at', $endPoint->last_health_check_timestamp);
+            }]);
+        }
+
         return view('end_points.index', [
              'endPoints' => $endPoints ?? []
         ]);
