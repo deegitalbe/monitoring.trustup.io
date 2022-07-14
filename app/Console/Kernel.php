@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('health:check-endpoints')->everyFiveMinutes();
+        $schedule->command('health:check-endpoints')->everyMinute();
         $schedule->command('health:check-domains')->hourly();
     }
 
