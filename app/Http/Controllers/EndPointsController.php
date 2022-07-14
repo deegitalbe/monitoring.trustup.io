@@ -9,7 +9,10 @@ class EndPointsController extends Controller
 {
     public function index()
     {
-        $endPoints = EndPoint::all();
+        $endPoints = EndPoint::when(request()->search_name, fn($query, $search_name) => $query->where('name', 'like', "%$search_name%"))
+            ->when(request()->boolean('show_staging'), fn($query, $show_staging) => null, fn($query, $show_staging) => $query->where('is_staging', false))
+            ->orderBy('is_staging', 'desc')
+            ->get();
 
         // Load less data as possible
         foreach ($endPoints as $endPoint) {
