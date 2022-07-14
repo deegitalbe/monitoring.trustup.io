@@ -31,12 +31,12 @@
                 <div class="flex flex-col md:flex-row justify-between">
                     <div class="flex items-center space-x-6">
                         <i class="fas fa-circle {{ $endPoint->is_monitored ? 'text-green-400' : 'text-red-400' }}"></i>
-                        <h2 class="text-xl md:text-2xl font-medium -mt-1">
+                        <a class="text-xl md:text-2xl font-medium -mt-1 hover:underline" href="{{ route('end-points.show', ['end_point' => $endPoint]) }}">
                             @if ($endPoint->is_staging)
                                 <span class="text-gray-600 text-sm">[STAGING]</span>
                             @endif
                             {{ $endPoint->name }}
-                        </h2>
+                        </a>
                     </div>
                     <div class="flex flex-col space-y-0 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-2 text-slate-300">
                         <h3 class="md:text-lg">{{ $endPoint->url }}{{ $endPoint->ping_default_url ? '/trustup-io/health/ping' : '' }} -</h3>
