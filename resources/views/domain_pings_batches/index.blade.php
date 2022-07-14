@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-2xl font-bold mb-4">List of the domain ping batches</h1>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-y-hidden overflow-x-auto lg:overflow-x-hidden">
             <table class="w-full">
                 <thead>
                 <tr class="text-left">
@@ -19,7 +19,7 @@
                 @foreach($domain_ping_batches as $domain_ping_batch)
                     <tr>
                         <td class="pr-6 pl-2 py-0.5 flex space-x-2 items-center h-full">
-                            <i class="fas fa-circle text-xs {{ $domain_ping_batch->failed ? 'text-red-400' : ($domain_ping_batch->finished_at ? 'text-green-400' : 'text-blue-300 animate-ping' )}}"></i>
+                            <i class="fas fa-circle text-xs {{ $domain_ping_batch->failed ? '!text-red-400' : '' }} {{ !$domain_ping_batch->finished_at ? 'animate-ping' : '' }}  {{ ($domain_ping_batch->finished_at ? 'text-green-400' : 'text-blue-300' )}}"></i>
                             <a class="text-blue-300 hover:text-blue-500" href="{{ route('domain-pings-batches.show', ['domain_pings_batch' => $domain_ping_batch]) }}"><i class="fas fa-eye"></i></a>
                         </td>
 
