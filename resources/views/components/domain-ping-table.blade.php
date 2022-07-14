@@ -16,8 +16,8 @@
                 </td>
 
                 <td class="px-4 py-0.5 whitespace-nowrap">
-                    <a class="hover:underline" href="{{ $domainPing->url }}" target="_blank">
-                        {{ \Illuminate\Support\Str::limit($domainPing->url, 40) }}
+                    <a class="hover:underline" href="{{ $domainPing->url }}" target="_blank" data-bs-toggle="tooltip" title="{{ $domainPing->url }}">
+                        {{ \Illuminate\Support\Str::limit($domainPing->url, 30) }}
                     </a>
                 </td>
                 <td class="px-4 py-0.5 text-gray-500">
@@ -25,7 +25,7 @@
                 </td>
 
                 <td class="px-4 py-0.5 whitespace-nowrap" data-bs-toggle="tooltip" title="{{ $domainPing->status_reason }}">
-                    {{ $domainPing->status != -1 ? $domainPing->status : \Illuminate\Support\Str::limit($domainPing->status_reason, 20) }}
+                    {{ $domainPing->status != -1 ? $domainPing->status : \Illuminate\Support\Str::limit($domainPing->status_reason, 15) }}
                 </td>
 
                 <td class="pr-4 py-0.5">
