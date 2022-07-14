@@ -24,9 +24,18 @@ class EndPoint extends Model
         return $this->hasMany(HealthCheck::class, 'end_point_id');
     }
 
-    public function last_health_checks()
+    public function last_health_checks($name = null)
     {
-        return $this->health_checks->where('finished_at', $this->last_health_check_timestamp);
+        return $this->health_checks
+            ->where('finished_at', $this->last_health_check_timestamp);
+    }
+
+    public function last_health_check_by_name($name)
+    {
+        return $this->health_checks
+            ->where('name', $name)
+            ->sortByDesc('finished_at')
+            ->first();
     }
 
     static function getFailedEndPoints()

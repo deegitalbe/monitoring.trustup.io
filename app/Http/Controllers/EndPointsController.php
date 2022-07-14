@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\EndPoint;
+use App\Models\HealthCheck;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EndPointsController extends Controller
 {
@@ -53,7 +55,26 @@ class EndPointsController extends Controller
 
     public function show(EndPoint $endPoint)
     {
-        //
+        $endPoint->load(['health_checks']);
+
+        $health_check_categories = DB::table('health_checks')
+            ->where('end_point_id', $endPoint->id)
+            ->select(['name', 'label'])
+            ->distinct()
+            ->get();
+
+        // Load the class dynamically to get the blade view to render
+        if (request()->health_check) {
+            $classname = '\\App\\HealthCheck\\'.request()->health_check;
+            $health_check_class = new $classname;
+            $health_check_class->set_data($endPoint->health_checks->where('name', request()->health_check));
+        }
+
+        return view('end_points.show', [
+            'endPoint' => $endPoint,
+            'health_check_categories' => $health_check_categories,
+            'health_check' => $health_check_class ?? null
+        ]);
     }
 
     public function edit(EndPoint $endPoint)
