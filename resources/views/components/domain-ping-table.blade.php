@@ -24,8 +24,8 @@
                     {{ $domainPing->dns_a }}
                 </td>
 
-                <td class="px-4 py-0.5 whitespace-nowrap">
-                    {{ $domainPing->status != -1 ? $domainPing->status : $domainPing->status_reason }}
+                <td class="px-4 py-0.5 whitespace-nowrap" data-bs-toggle="tooltip" title="{{ $domainPing->status_reason }}">
+                    {{ $domainPing->status != -1 ? $domainPing->status : \Illuminate\Support\Str::limit($domainPing->status_reason, 20) }}
                 </td>
 
                 <td class="pr-4 py-0.5">
