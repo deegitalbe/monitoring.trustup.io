@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('job_batches', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id('do_id');
+            $table->string('id');
             $table->string('name');
             $table->integer('total_jobs');
             $table->integer('pending_jobs');

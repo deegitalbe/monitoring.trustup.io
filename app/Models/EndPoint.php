@@ -14,7 +14,6 @@ class EndPoint extends Model
     protected $fillable = ['name', 'url', 'is_monitored', 'is_staging'];
 
     public $health_checks_failed = false;
-    public $last_health_checks = null;
 
     protected $casts = [
         'last_health_check_timestamp' => 'datetime'
@@ -22,12 +21,17 @@ class EndPoint extends Model
 
     public function health_checks()
     {
-        return $this->hasMany(HealthCheck::class, 'end_point_id')->orderBy('finished_at', 'desc');
+        return $this->hasMany(HealthCheck::class, 'end_point_id');
     }
 
     public function last_health_checks()
     {
-        return $this->health_checks()->where('finished_at', $this->last_health_check_timestamp);
+        return $this->health_checks->where('finished_at', $this->last_health_check_timestamp);
+    }
+
+    static function getFailedEndPoints()
+    {
+        $endPoints = self::with('health_checks');
     }
 
     public function has_failed()
@@ -35,6 +39,8 @@ class EndPoint extends Model
         $has_health_check_failed = $this->last_health_checks()->where('name', 'HealthCheckFailed')->count() > 0;
         $has_bad_ping_status = $this->last_health_checks()->where('name', 'Ping')->where('status', 'failed')->count() > 0;
         $has_no_health_check = $this->last_health_checks()->count() == 0;
+
+        ray($this->name, $has_health_check_failed, $has_bad_ping_status, $has_no_health_check);
 
         return $has_health_check_failed || $has_bad_ping_status || $has_no_health_check;
     }
