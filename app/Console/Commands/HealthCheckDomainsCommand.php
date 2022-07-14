@@ -45,6 +45,12 @@ class HealthCheckDomainsCommand extends Command
             })->catch(function (Batch $batch, \Throwable $e) {
                 $domain_ping_batch = DomainPingBatch::where('job_batches_id', $batch->id)->first();
                 $domain_ping_batch->failed = 1;
+
+                if (!$domain_ping_batch->failed_reason)
+                    $domain_ping_batch->failed_reason = $e->getMessage();
+                else
+                    $domain_ping_batch->failed_reason .= $e->getMessage();
+
                 $domain_ping_batch->save();
             })->finally(function (Batch $batch) {
 
