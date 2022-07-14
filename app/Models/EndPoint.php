@@ -54,7 +54,7 @@ class EndPoint extends Model
         if (!$this->is_monitored) return;
 
         $response = Http::withoutVerifying()
-            ->get($this->url . '/health-json');
+            ->get($this->url . '/trustup-io/health/json');
 
         try {
             return new Fluent(json_decode($response->body()));
