@@ -5,6 +5,17 @@
         <a class="text-blue-400 hover:underline" href="{{ route('end-points.create') }}">Create an end-point</a>
     </div>
 
+
+    <div class="mb-8">
+        <form action="{{ route('end-points.index') }}" method="GET" class="flex space-x-2 items-center">
+            <button type="submit" class="w-min bg-blue-600 rounded px-4 py-2 text-white hover:bg-blue-800 transition-colors">Filter</button>
+            <input type="text" name="search_name" id="search_namename" placeholder="Search..." value="{{ request()->search_name }}" class="p-2 outline-0 border border-neutral-200 rounded">
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="show_staging" name="show_staging" class="rounded" {{ request()->boolean('show_staging') ? 'checked' : '' }}>
+                <label for="show_staging">Show staging</label>
+            </div>
+        </form>
+    </div>
     <div class="flex flex-col space-y-8">
         @foreach ($endPoints as $endPoint)
             <div class="bg-white rounded-lg p-8 relative ">
@@ -12,12 +23,20 @@
                 @if ($endPoint->has_failed())
                     <div class="h-full w-4 bg-red-600 absolute left-0 top-0 rounded-l-lg animate-pulse shadow-xl shadow-red-500"></div>
                 @endif
+                @if ($endPoint->has_no_data())
+                    <div class="h-full w-4 bg-orange-400 absolute left-0 top-0 rounded-l-lg animate-pulse shadow-xl shadow-red-500"></div>
+                @endif
 
                 {{-- TITLE SECTION --}}
                 <div class="flex flex-col md:flex-row justify-between">
                     <div class="flex items-center space-x-6">
                         <i class="fas fa-circle {{ $endPoint->is_monitored ? 'text-green-400' : 'text-red-400' }}"></i>
-                        <h2 class="text-xl md:text-2xl font-medium -mt-1">{{ $endPoint->name }}</h2>
+                        <h2 class="text-xl md:text-2xl font-medium -mt-1">
+                            @if ($endPoint->is_staging)
+                                <span class="text-gray-600 text-sm">[STAGING]</span>
+                            @endif
+                            {{ $endPoint->name }}
+                        </h2>
                     </div>
                     <div class="flex flex-col space-y-0 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-2 text-slate-300">
                         <h3 class="md:text-lg">{{ $endPoint->url }} -</h3>

@@ -38,11 +38,15 @@ class EndPoint extends Model
     {
         $has_health_check_failed = $this->last_health_checks()->where('name', 'HealthCheckFailed')->count() > 0;
         $has_bad_ping_status = $this->last_health_checks()->where('name', 'Ping')->where('status', 'failed')->count() > 0;
+
+        return $has_health_check_failed || $has_bad_ping_status;
+    }
+
+    public function has_no_data()
+    {
         $has_no_health_check = $this->last_health_checks()->count() == 0;
 
-        ray($this->name, $has_health_check_failed, $has_bad_ping_status, $has_no_health_check);
-
-        return $has_health_check_failed || $has_bad_ping_status || $has_no_health_check;
+        return $has_no_health_check;
     }
 
     protected static function booted()
@@ -54,6 +58,7 @@ class EndPoint extends Model
         if (!$this->is_monitored) return;
 
         $response = Http::withoutVerifying()
+            ->withHeaders(['X-Server-Authorization' => env('TRUSTUP_SERVER_AUTHORIZATION')])
             ->get($this->url . '/trustup-io/health/json');
 
         try {
