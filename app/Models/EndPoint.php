@@ -58,6 +58,7 @@ class EndPoint extends Model
         if (!$this->is_monitored) return;
 
         $response = Http::withoutVerifying()
+            ->withHeaders(['X-Server-Authorization' => env('TRUSTUP_SERVER_AUTHORIZATION')])
             ->get($this->url . '/trustup-io/health/json');
 
         try {
