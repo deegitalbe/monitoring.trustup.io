@@ -23,8 +23,8 @@
                     <h1 class="text-xl mb-4">Bad status ({{ count($domain_pings_batch->domain_pings->where('status', '!=', 200)) }} pinged)</h1>
                     <x-domain-ping-table class="w-full mb-8" :domain-pings="$domain_pings_batch->domain_pings->where('status', '!=', 200)->sortByDesc('answer_time_ms')"></x-domain-ping-table>
 
-                    <h1 class="text-xl mb-4">Not our DNS ({{ count($domain_pings_batch->domain_pings->whereNotIn('dns_a', ['79.137.112.118', '206.189.198.54', '104.248.253.155'])) }} pinged)</h1>
-                    <x-domain-ping-table class="w-full" :domain-pings="$domain_pings_batch->domain_pings->whereNotIn('dns_a', ['79.137.112.118', '206.189.198.54', '104.248.253.155'])->sortByDesc('answer_time_ms')"></x-domain-ping-table>
+                    <h1 class="text-xl mb-4">Not our DNS ({{ count($domain_pings_batch->domain_pings->whereNotNull('dns_a')->whereNotIn('dns_a', ['79.137.112.118', '206.189.198.54', '104.248.253.155'])) }} pinged)</h1>
+                    <x-domain-ping-table class="w-full" :domain-pings="$domain_pings_batch->domain_pings->whereNotNull('dns_a')->whereNotIn('dns_a', ['79.137.112.118', '206.189.198.54', '104.248.253.155'])->sortByDesc('answer_time_ms')"></x-domain-ping-table>
                 </div>
 
                 <div class="xl:w-1/2">
