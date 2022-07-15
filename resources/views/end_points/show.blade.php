@@ -12,7 +12,7 @@
                 @php
                     $last_health_check = $endPoint->last_health_check_by_name($category->name);
                 @endphp
-                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => $category->name]) }}" class="p-4 shadow-md transition-colors hover:bg-gray-100 rounded-xl bg-white" data-bs-toggle="tooltip" title="{{ $last_health_check?->notification_message }}">
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => $category->name,  'date_range' => 'h']) }}" class="p-4 shadow-md transition-colors hover:bg-gray-100 rounded-xl bg-white" data-bs-toggle="tooltip" title="{{ $last_health_check?->notification_message }}">
                     <div class="flex items-start space-x-4 mb-2">
                         <i class="fas fa-circle text-sm mt-1 {{ $last_health_check?->status == 'ok' ? 'text-green-400' : 'text-red-400' }}"></i>
                         <div class="w-full">
@@ -30,6 +30,14 @@
 
     @if ($health_check)
         <div class="w-full bg-white p-6">
+            <div class="mb-4 flex justify-end space-x-2">
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => request()->health_check, 'date_range' => 'h']) }}" class="bg-gray-200 hover:bg-gray-300 transition-colors py-2 px-4 rounded">Last hour</a>
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => request()->health_check, 'date_range' => 'd']) }}" class="bg-gray-200 hover:bg-gray-300 transition-colors py-2 px-4 rounded">Last day</a>
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => request()->health_check, 'date_range' => 'm']) }}" class="bg-gray-200 hover:bg-gray-300 transition-colors py-2 px-4 rounded">Last month</a>
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => request()->health_check, 'date_range' => '3m']) }}" class="bg-gray-200 hover:bg-gray-300 transition-colors py-2 px-4 rounded">Last 3 month</a>
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => request()->health_check, 'date_range' => 'y']) }}" class="bg-gray-200 hover:bg-gray-300 transition-colors py-2 px-4 rounded">Last year</a>
+                <a href="{{ route('end-points.show', ['end_point' => $endPoint, 'health_check' => request()->health_check]) }}" class="bg-gray-200 hover:bg-gray-300 transition-colors py-2 px-4 rounded">All</a>
+            </div>
             {{ $health_check->view() }}
         </div>
     @endif

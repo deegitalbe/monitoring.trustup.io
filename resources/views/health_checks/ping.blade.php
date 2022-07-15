@@ -1,6 +1,4 @@
 <div>
-    <h1>I'm ping!</h1>
-
     <canvas id="myChart"></canvas>
 
     @php
