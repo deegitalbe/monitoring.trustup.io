@@ -45,13 +45,13 @@ class BaseHealthCheck
                 ];
             case 'w':
                 return [
-                    'begin_range' => Carbon::now()->subMonth(), // Last week
+                    'begin_range' => Carbon::now()->subWeek(), // Last week
                     'step' => 1 * 60 * 6, // 6 hour
                     'format' => 'd M H:i',
                 ];
             case '2w':
                 return [
-                    'begin_range' => Carbon::now()->subMonth(), // Last 2 weeks
+                    'begin_range' => Carbon::now()->subWeeks(2), // Last 2 weeks
                     'step' => 1 * 60 * 12, // 12 hours
                     'format' => 'd M H:i',
                 ];

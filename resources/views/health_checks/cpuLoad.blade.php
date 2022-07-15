@@ -21,7 +21,7 @@
     const data = {
         labels: labels,
         datasets: [{
-            label: '% usage',
+            label: 'overload',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: dataset,
