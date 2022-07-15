@@ -183,7 +183,7 @@ return [
         'production' => [
             'supervisor-1' => [
                 'minProcesses' => 1,
-                'maxProcesses' => 5,
+                'maxProcesses' => 10,
             ],
         ],
 
