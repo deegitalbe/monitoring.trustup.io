@@ -40,7 +40,7 @@ class BaseHealthCheck
             case 'd':
                 return [
                     'begin_range' => Carbon::now()->subDay(), // Last day
-                    'step' => 5, // 1 hour
+                    'step' => 1 * 60, // 1 hour
                     'format' => 'H:i',
                 ];
             case 'm':
