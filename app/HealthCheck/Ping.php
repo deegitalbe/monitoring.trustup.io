@@ -11,6 +11,7 @@ class Ping extends BaseHealthCheck
     {
         foreach ($health_checks as $health_check) {
             $health_check->stat_value = intval(str_replace('ms', '', explode(' - ', $health_check->short_summary)[1]));
+            $health_check->stat_value2 = intval(explode(' - ', $health_check->short_summary)[0]);
         }
 
         return $health_checks;

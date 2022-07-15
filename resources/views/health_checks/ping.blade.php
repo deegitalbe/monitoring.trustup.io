@@ -4,27 +4,25 @@
     @php
 
     $labels = '';
-    $dataset = '';
+    $ping_data = '';
 
     foreach ($datas as $data) {
         $labels .= '\''.$data['label'].'\',';
-        $dataset .= ''.$data['value'].',';
+        $ping_data .= ''.$data['value'].',';
     }
 
     @endphp
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labels = [{!! $labels !!}];
-    const dataset = [{!! $dataset !!}];
 
     const data = {
-        labels: labels,
+        labels: [{!! $labels !!}],
         datasets: [{
             label: 'Ping (in ms)',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: dataset,
+            data: [{!! $ping_data !!}],
         }]
     };
 

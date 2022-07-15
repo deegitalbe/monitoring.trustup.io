@@ -109,7 +109,7 @@ class BaseHealthCheck
                 'label' => $dateRange['begin_range']->format($dateRange['format']),
                 'value' => $parsed_health_checks->where('finished_at', '>=', $dateRange['begin_range'])
                     ->where('finished_at', '<', $dateRange['begin_range']->copy()->addMinutes($dateRange['step']))
-                    ->avg('stat_value')
+                    ->avg('stat_value'),
             ]);
 
             $dateRange['begin_range']->addMinutes($dateRange['step']);
