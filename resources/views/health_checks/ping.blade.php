@@ -9,8 +9,8 @@
     $dataset = '';
 
     foreach ($datas as $data) {
-        $labels .= '\''.$data->finished_at->format('d/m/Y H:i').'\',';
-        $dataset .= ''.str_replace('ms', '', explode(' - ', $data->short_summary)[1]).',';
+        $labels .= '\''.$data['label'].'\',';
+        $dataset .= ''.$data['value'].',';
     }
 
     @endphp
