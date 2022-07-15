@@ -53,7 +53,7 @@ class EndPointsController extends Controller
 
     public function show(EndPoint $endPoint)
     {
-        $endPoint->load(['health_checks']);
+//        $endPoint->load(['health_checks']);
 
         $health_check_categories = DB::table('health_checks')
             ->where('end_point_id', $endPoint->id)
@@ -65,7 +65,7 @@ class EndPointsController extends Controller
         if (request()->health_check) {
             $classname = '\\App\\HealthCheck\\'.request()->health_check;
             $health_check_class = new $classname;
-            $health_check_class->set_data($endPoint->health_checks->where('name', request()->health_check));
+            $health_check_class->set_data(HealthCheck::where('end_point_id', $endPoint->id)->where('name', request()->health_check)->get());
         }
 
         return view('end_points.show', [

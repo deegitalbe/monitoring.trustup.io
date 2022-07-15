@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Fluent;
 
@@ -32,9 +33,9 @@ class EndPoint extends Model
 
     public function last_health_check_by_name($name)
     {
-        return $this->health_checks
+        return HealthCheck::where('end_point_id', $this->id)
             ->where('name', $name)
-            ->sortByDesc('finished_at')
+            ->orderBy('finished_at', 'desc')
             ->first();
     }
 
