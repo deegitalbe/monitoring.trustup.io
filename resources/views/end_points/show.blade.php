@@ -17,7 +17,7 @@
                         <i class="fas fa-circle text-sm mt-1 {{ $last_health_check?->status == 'ok' ? 'text-green-400' : 'text-red-400' }}"></i>
                         <div class="w-full">
                             <div class="flex justify-between items-end w-full">
-                                <h2 class="text-slate-800 text-xl font-bold">{{ $category->label }}</h2>
+                                <h2 class="text-slate-800 text-xl font-bold">{{ $last_health_check->label }}</h2>
                                 <h3 class="text-slate-400 text-sm">{{ \Illuminate\Support\Carbon::createFromDate($last_health_check?->finished_at)->diffForHumans() }}</h3>
                             </div>
                             <h3 class="text-slate-600">{{ $last_health_check?->short_summary }}</h3>

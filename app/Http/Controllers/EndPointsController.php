@@ -57,7 +57,7 @@ class EndPointsController extends Controller
 
         $health_check_categories = DB::table('health_checks')
             ->where('end_point_id', $endPoint->id)
-            ->select(['name', 'label'])
+            ->select('name')
             ->distinct()
             ->get();
 
