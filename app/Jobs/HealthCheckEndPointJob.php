@@ -26,24 +26,41 @@ class HealthCheckEndPointJob implements ShouldQueue
 
     public function do_ping($finished_at)
     {
-        $startTime = microtime(true);
-        $ping_response = Http::withoutVerifying()
-            ->withHeaders(['X-Server-Authorization' => env('TRUSTUP_SERVER_AUTHORIZATION')])
-            ->get($this->endPoint->url . ($this->endPoint->ping_default_url ? '/trustup-io/health/ping' : ''));
-        $endTime = microtime(true);
+        try {
+            $startTime = microtime(true);
+            $ping_response = Http::withoutVerifying()
+                ->timeout(20)
+                ->withHeaders(['X-Server-Authorization' => env('TRUSTUP_SERVER_AUTHORIZATION')])
+                ->get($this->endPoint->url . ($this->endPoint->ping_default_url ? '/trustup-io/health/ping' : ''));
 
-        $ping_time_ms = (round(($endTime - $startTime), 3) * 1000);
+            $endTime = microtime(true);
+            $ping_time_ms = (round(($endTime - $startTime), 3) * 1000);
 
-        HealthCheck::create([
-            'finished_at' => $finished_at,
-            'name' => 'Ping',
-            'label' => 'Ping',
-            'notification_message' => 'Ping',
-            'short_summary' => $ping_response->status().' - '.$ping_time_ms.'ms',
-            'status' => $ping_response->status() == 200 ? 'ok' : 'failed',
-            'meta' => null,
-            'end_point_id' => $this->endPoint->id
-        ]);
+            HealthCheck::create([
+                'finished_at' => $finished_at,
+                'name' => 'Ping',
+                'label' => 'Ping',
+                'notification_message' => 'Ping',
+                'short_summary' => $ping_response->status().' - '.$ping_time_ms.'ms',
+                'status' => $ping_response->status() == 200 ? 'ok' : 'failed',
+                'meta' => null,
+                'end_point_id' => $this->endPoint->id
+            ]);
+        } catch (\Exception $e) {
+            $endTime = microtime(true);
+            $ping_time_ms = (round(($endTime - $startTime), 3) * 1000);
+
+            HealthCheck::create([
+                'finished_at' => $finished_at,
+                'name' => 'Ping',
+                'label' => 'Ping',
+                'notification_message' => 'Ping',
+                'short_summary' => 'Timeout - '.$ping_time_ms.'ms',
+                'status' => 'failed',
+                'meta' => null,
+                'end_point_id' => $this->endPoint->id
+            ]);
+        }
     }
 
     public function handle()
