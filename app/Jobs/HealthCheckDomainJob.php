@@ -63,7 +63,7 @@ class HealthCheckDomainJob implements ShouldQueue
                 'url' => $this->domain['url'],
                 'status' => -1,
                 'status_reason' => $e->getMessage(),
-                'answer_time_ms' => (round(($endTime - $startTime), 3) * 1000), // answer time in ms
+                'answer_time_ms' => 22222, // answer time in ms
                 'domain_ping_batch_id' => $this->domain_ping_batch_id,
                 'dns_a' => count($result) > 0 ? $result[0]->ip() : null,
             ]);

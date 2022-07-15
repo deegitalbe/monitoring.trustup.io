@@ -55,7 +55,7 @@ class HealthCheckEndPointJob implements ShouldQueue
                 'name' => 'Ping',
                 'label' => 'Ping',
                 'notification_message' => 'Ping',
-                'short_summary' => '0 - '.$ping_time_ms.'ms',
+                'short_summary' => '0 - 22222ms',
                 'status' => 'failed',
                 'meta' => null,
                 'end_point_id' => $this->endPoint->id
