@@ -5,6 +5,7 @@ namespace App\HealthCheck;
 use App\Models\HealthCheck;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class BaseHealthCheck
@@ -104,9 +105,11 @@ class BaseHealthCheck
         }
 
         // Get the data for only the desired range
-        $health_checks = HealthCheck::where('end_point_id', $this->endPoint->id)
+        $health_checks = DB::table('health_checks')
+            ->where('end_point_id', $this->endPoint->id)
             ->where('name', $this->health_check_name)
             ->when($dateRange['begin_range'], fn($query, $begin_range) => $query->where('finished_at', '>=', $begin_range))
+            ->select(['finished_at', 'short_summary'])
             ->get();
 
         // Parse the data to calculate the avg on the good date
