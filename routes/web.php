@@ -19,6 +19,7 @@ Route::get('/', fn() => redirect(route('end-points.index')));
 
 Route::resource('end-points', EndPointsController::class);
 Route::resource('domain-pings-batches', DomainPingBatchesController::class);
+Route::get('domain-stats', [DomainPingBatchesController::class, 'domain_stat'])->name('domain.stats');
 
 
 require __DIR__.'/auth.php';

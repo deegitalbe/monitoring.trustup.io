@@ -11,8 +11,9 @@
     <tbody class="bg-white border-t-2 border-black">
         @foreach($domainPings as $domainPing)
             <tr>
-                <td class="pl-2 py-0.5">
-                    <i class="fas fa-circle text-sm mt-1 {{ $domainPing->status == 200 ? ($domainPing->answer_time_ms >= 3000 ? 'text-orange-400' : 'text-green-400') : 'text-red-400' }}"></i>
+                <td class="pl-2 py-0.5 flex space-x-1 items-center">
+                    <i class="fas fa-circle text-sm {{ $domainPing->status == 200 ? ($domainPing->answer_time_ms >= 3000 ? 'text-orange-400' : 'text-green-400') : 'text-red-400' }}"></i>
+                    <a class="text-blue-300 hover:text-blue-500" href="{{ route('domain.stats', ['url' => $domainPing->url]) }}"><i class="fas fa-eye"></i></a>
                 </td>
 
                 <td class="px-2 py-0.5 whitespace-nowrap">

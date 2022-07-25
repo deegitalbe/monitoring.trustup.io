@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DomainPing;
 use App\Models\DomainPingBatch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DomainPingBatchesController extends Controller
 {
@@ -24,6 +26,23 @@ class DomainPingBatchesController extends Controller
 
         return view('domain_pings_batches.index', [
             'domain_ping_batches' => $domain_ping_batches
+        ]);
+    }
+
+    public function domain_stat()
+    {
+        if (!request()->url)
+            return redirect(route('domain-pings-batches.index'));
+
+        $datas = DB::table('domain_pings')
+            ->select(['answer_time_ms', 'created_at'])
+            ->where('url', request()->url)
+            ->orderBy('created_at')
+            ->get();
+
+        return view('domain_pings_batches.domain_stats', [
+            'url' => request()->url,
+            'datas' => $datas
         ]);
     }
 
