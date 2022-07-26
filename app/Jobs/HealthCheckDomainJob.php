@@ -35,7 +35,7 @@ class HealthCheckDomainJob implements ShouldQueue
             $result = $dns->getRecords($this->domain['url'], 'A');
 
             $startTime = microtime(true);
-            $customer_domain_response = Http::withoutVerifying()->timeout(20)->get($this->domain['url']);
+            $customer_domain_response = Http::withoutVerifying()->timeout(2)->get($this->domain['url']);
             $endTime = microtime(true);
 
             DomainPing::create([

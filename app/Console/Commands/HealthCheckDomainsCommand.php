@@ -22,7 +22,7 @@ class HealthCheckDomainsCommand extends Command
 
     public function handle()
     {
-        $domains_reponse = Http::acceptJson()->withHeaders(['Authorization' => 'Bearer ' . env('BEARER_TOKEN_TEST')])->get('https://website.trustup.io/admin-api/domains');
+        $domains_reponse = Http::acceptJson()->withHeaders(['Authorization' => 'Bearer ' . env('BEARER_TOKEN_TEST')])->get('https://website.trustup.io/common-api/domains');
         $data = $domains_reponse->json()['data'];
 
         $domain_ping_batch = DomainPingBatch::create([
@@ -33,7 +33,7 @@ class HealthCheckDomainsCommand extends Command
         $domainJobs = [];
 
         foreach ($data as $index => $domain) {
-            $this->info('Job created: Ping domain ' . ($index+1) . '/' . $domain_ping_batch->domain_count);
+            $this->info('Job created: Ping domain ' . ($index + 1) . '/' . $domain_ping_batch->domain_count);
             array_push($domainJobs, new HealthCheckDomainJob($domain_ping_batch->id, $domain));
         }
 
